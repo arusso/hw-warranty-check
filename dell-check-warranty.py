@@ -24,8 +24,11 @@ def get_warranty_info(arg):
   text = urlopen(url).read()
 
   match = re.search(r'<td class="contract_oddrow">\d+/\d+/\d+</td><td class="contract_oddrow">(\d+/\d+/\d+)</td>', text)
-  print match.group(1)
-
+  if match != None:
+	  print match.group(1)
+  else:
+      print "N/A"
+      
   return
 
 if __name__ == "__main__":
