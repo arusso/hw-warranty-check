@@ -1,0 +1,11 @@
+This repository contains a script that will return the warranty of a Dell machine, given a valid service tag
+
+Bug checking status is meh right now
+
+Feel free to fork&fix and/or submit comments/bugs to me.
+
+I am not responsible for anything that happens as a result of using this script.
+
+The code is pretty straightforward, so read it.
+
+I can be found in ##/r/sysadmin on freenode
