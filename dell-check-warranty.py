@@ -6,24 +6,46 @@
 import os
 import re
 import sys
+import argparse
+
 from urllib import urlopen
 
 ## 
 # Main Application Entrance
-def main(argv):
-  for arg in argv:
-    if validate(arg): get_warranty_info(arg)
-    else: print "error: '" + arg + "' is not a valid dell service tag"
+def main():
+    parse_args()
+
+    for tag in arg.tags:
+        get_warranty_info(tag)
+
     exit
 
 ##
 # Service Tag Validation Function
 #
 # Currently supports the 7 digit svc tag that Dell uses
-def validate(arg):
-  valid = re.compile(r"[0-9a-zA-Z]{7}$")
-  if valid.match(arg): return 1
-  return 0
+# This function is used as a type for the argument parser, and simply calls our validate(tag) function
+def valid_tag(tag):
+    if validate(tag): return tag  # tag is ok
+    raise argparse.ArgumentTypeError(msg) # tag is not ok
+  
+##
+# Validates a service tag
+def validate(tag):
+    valid = re.compile(r"[0-9a-zA-Z]{7}$")
+    if valid.match(tag): return True
+    return False
+
+##
+# Parse CLI arguments
+def parse_args():
+    parser = argparse.ArgumentParser(description='provides warranty expiration dates, given a valid Dell service tag')
+    parser.add_argument('tags',metavar='SVCTAG',type=valid_tag)
+
+    # finish parser here
+
+    return parser.parse_args()
+
 
 ##
 # Warranty retrieval function
